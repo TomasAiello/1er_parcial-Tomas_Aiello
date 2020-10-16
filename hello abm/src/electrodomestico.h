@@ -25,12 +25,84 @@ typedef struct{
 
 
 typedef struct{
-	int id, serie, idMarca, modelo;
+	int id, serie, idMarca, modelo, isEmpty;
 
 }electrodomestico;
 
 
-
+int getInt(int* pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int reintentos);
+/*
+ * BRIEF: devuelve un numero entero por puntero, validado y con cantidad de intentos limitadas
+ * param 1: punto del numero a obtener
+ * param 2: mensaje 1
+ * param 3: mensaje de error
+ * param 4: minimo numero a obtener
+ * param 5: maximo numero a obtener
+ * param 6: cantidad de reintentos
+ */
+int getFloat(float* pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int reintentos);
+/*
+ * BRIEF: devuelve un numero flotante por puntero, validado y con cantidad de intentos limitadas
+ * param 1: punto del numero a obtener
+ * param 2: mensaje 1
+ * param 3: mensaje de error
+ * param 4: minimo numero a obtener
+ * param 5: maximo numero a obtener
+ * param 6: cantidad de reintentos
+ */
 int initArray(electrodomestico* list, int len);
+/*
+ * BRIEF: inicializa un array
+ * param 1: array de reparaciones por puntero
+ * param 2: largo del array
+ */
+int elecIsEmpty(electrodomestico* list, int len, int* posicion);
+/*
+ * BRIEF: busca posiciones libres del array
+ * param 1: array de electrodomesticos por puntero
+ * param 2: largo del array
+ * param 3: posicion del array en la que se escribira posteriormente la informacion
+ */
+int AltaElec(electrodomestico* list, int len, int serie, int idMarca, int modelo);
+/*
+ * BRIEF: dar de alta un electrodomestico
+ * param 1: largo del array
+ * param 2: campo numero de serie
+ * param 3: campo id de marca (validado)
+ * param 4: campo año de fabricacion
+ */
+int modificarElec(electrodomestico* list, int len, int id, int* posicion);
+/*
+ * BRIEF: modificar un electrodomestico
+ * param 1: largo del array
+ * param 2: campo id autoincremental y unico
+ * param 3: posicion del array donde se escribira la informacion
+ */
+int bajaElec(electrodomestico* list, int len, int id, int* posicion);
+/*
+ * BRIEF: dar de baja un electrodomestico
+ * param 1: largo del array
+ * param 2: campo id autoincremental y unico
+ * param 3: posicion del array donde se escribira la informacion
+ */
+int ordenarElec(electrodomestico* list, int len, int order);
+/*
+ * BRIEF: ordenamiento por modelo y numero de serie, order = 0 menor a mayor, order = 1 mayor a menor
+ * param 1: largo del array
+ * param 2: campo id autoincremental y unico
+ * param 3: posicion del array donde se escribira la informacion
+ */
+int printElec(electrodomestico* list, int len);
+/*
+ * BRIEF: listar electrodomesticos dados de alta
+ * param 1: array electrodomesticos (puntero)
+ * param 2: largo del array
+ */
+int printMarcas(marca* Marcas, int len);
+/*
+ * BRIEF: listar marcas harcodeadas
+ * param 1: array marcas (puntero)
+ * param 2: largo del array
+ */
 
 #endif /* ELECTRODOMESTICO_H_ */

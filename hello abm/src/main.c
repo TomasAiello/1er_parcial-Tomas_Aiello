@@ -24,7 +24,19 @@
 int main(void) {
 
 	setbuf(stdout, NULL);
-	int flagAlta = 0;
+
+	int flagAltaElec = 0;
+	int flagAltaRep = 0;
+	int opcion;
+	int idElec = 0;
+	int posicion = 0;
+	char resp;
+	char msg[50];
+	char msgError[50];
+	int min, max;
+	int i;
+	int auxIdElec =0;
+	int order;
 
 	electrodomestico list[TAM];
 	reparacion catalogo[TAM];
@@ -37,17 +49,103 @@ int main(void) {
 	initArray2(catalogo, TAM);
 	initArray3(momento, TAM);
 
-	switch(utn_menu(&flagAlta)){
+	opcion = utn_menu(&flagAltaElec, &flagAltaRep);
 
-	case 1:
+	switch(utn_menu(&flagAltaElec, &flagAltaRep)){
 
+		case 1:
+			do {
+					elecIsEmpty(list, TAM, &posicion);
+
+						if (list[posicion].isEmpty == 1) {
+
+							idElec++;
+							list[posicion].id = idElec;
+
+							AltaElec(list, TAM, list[posicion].serie, list[posicion].idMarca, list[posicion].modelo);
+							list[posicion].isEmpty = 0;
+
+						}
+						else {
+							printf("\n No hay posiciones libres");
+						}
+
+						printf("\nEl alta a sido exitosa! \nQuiere dar de ALTA otro electrodomestico? s/n");
+						fpurge(stdin);
+						scanf("%c", &resp);
+
+					} while (resp == 's');
+
+					opcion = utn_menu(&flagAltaElec, &flagAltaRep);
+
+					break;
+		case 2:
+
+				strcpy(msg, "\nIngrese el numero de ID");
+				strcpy(msgError, "\nID inexistente");
+				min = 1;
+				max = idElec;
+				getInt(&auxIdElec, msg, msgError, min, max, RETRY);
+
+					for (i = 1; i < idElec; i++) {
+						if (list[i].id == auxIdElec) {
+							posicion = i;
+							modificarElec(list, TAM, list[posicion].id, &posicion);
+							break;
+						}
+					}
+
+					break;
+
+		case 3:
+
+			strcpy(msg, "\nIngrese el numero de ID");
+			strcpy(msgError, "\nID inexistente");
+			min = 1;
+			max = idElec;
+			getInt(&auxIdElec, msg, msgError, min, max, RETRY);
+
+			for (i = 1; i < idElec; i++) {
+				if (list[i].id == auxIdElec) {
+					posicion = i;
+					bajaElec(list, TAM, list[posicion].id, &posicion);
+					break;
+				}
+			}
+			break;
+
+		case 4:
+
+			strcpy(msg,
+					"\nDesea INFORMAR por modelo - ascendente o descendente (0-1, respectivamente) ? ");
+			strcpy(msgError, "\nOpcion no contemplada");
+			min = 0;
+			max = 1;
+			getInt(&order, msg, msgError, min, max, RETRY);
+
+			ordenarElec(list, TAM, order);
+			printElec(list, TAM);
+
+			break;
+
+		case 5:
+
+			printMarcas(Marcas, 5);
+			break;
+
+		case 6:
+			printServicios(Servicios, 4);
+			break;
+
+		case 7:
+			//AltaRep
+			break;
+		case 8:
+			printRep(catalogo, TAM, momento, TAM);
+			break;
 
 
 	}
-
-
-
-
 
 
 
