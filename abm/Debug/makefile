@@ -23,19 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: hello\ abm
+all: abm
 
 # Tool invocations
-hello\ abm: $(OBJS) $(USER_OBJS)
+abm: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C Linker'
-	gcc  -o "hello abm" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "abm" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) "hello abm"
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) abm
 	-@echo ' '
 
 .PHONY: all clean dependents

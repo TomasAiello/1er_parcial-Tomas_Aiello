@@ -30,26 +30,6 @@ typedef struct{
 }electrodomestico;
 
 
-int getInt(int* pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int reintentos);
-/*
- * BRIEF: devuelve un numero entero por puntero, validado y con cantidad de intentos limitadas
- * param 1: punto del numero a obtener
- * param 2: mensaje 1
- * param 3: mensaje de error
- * param 4: minimo numero a obtener
- * param 5: maximo numero a obtener
- * param 6: cantidad de reintentos
- */
-int getFloat(float* pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int reintentos);
-/*
- * BRIEF: devuelve un numero flotante por puntero, validado y con cantidad de intentos limitadas
- * param 1: punto del numero a obtener
- * param 2: mensaje 1
- * param 3: mensaje de error
- * param 4: minimo numero a obtener
- * param 5: maximo numero a obtener
- * param 6: cantidad de reintentos
- */
 int initArray(electrodomestico* list, int len);
 /*
  * BRIEF: inicializa un array

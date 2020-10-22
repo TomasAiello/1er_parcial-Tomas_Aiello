@@ -4,18 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/abm.c \
+../src/cliente.c \
 ../src/electrodomestico.c \
-../src/main.c \
 ../src/reparacion.c 
 
 OBJS += \
+./src/abm.o \
+./src/cliente.o \
 ./src/electrodomestico.o \
-./src/main.o \
 ./src/reparacion.o 
 
 C_DEPS += \
+./src/abm.d \
+./src/cliente.d \
 ./src/electrodomestico.d \
-./src/main.d \
 ./src/reparacion.d 
 
 

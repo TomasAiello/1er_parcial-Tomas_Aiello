@@ -15,6 +15,7 @@
 #include <string.h>
 #include "string.h"
 #include <ctype.h>
+#include "cliente.h"
 
 
 
@@ -31,7 +32,7 @@ typedef struct{
 
 
 typedef struct{
-	int id, serie, idServicio, isEmpty;
+	int id, serie, idServicio, isEmpty, idCliente;
 	fecha fechaReparacion;
 
 }reparacion;
@@ -82,8 +83,29 @@ int printServicios(servicio* Servicios, int len);
  * param 2: largo del array
  */
 
-// PERDON POR ESTAS  DOS FUNCIONES HORRIBLES, NO SUPE RESOLVERLO
-//int AltaRep(reparacion* catalogo, int len, int serie, int idServicio, fecha* momento, int lenFecha, electrodomestico* list, int lenElec, int idElec, int posicionRep);
+int repaIsEmpty(reparacion* catalogo, int len, int* posicionRep);
+/*
+ * BRIEF: busca posiciones libres en el array
+ * param 1: largo del array
+ * param 2: posicion del array en la que escribira la funcion
+ */
+int AltaRep(reparacion* catalogo, int len, fecha* fechaReparacion, int lenFecha, cliente* Clientes, int lenListado, int* posicionRep);
+/*
+ * BRIEF: dar de alta una reparacion
+ * param 1: array de reparacion
+ * param 2: largo del array reparacion
+ * param 3: array de fecha
+ * param 4: largo del array fecha
+ * param 5: array clientes
+ * param 6: largo del array clientes
+ * param 7: posicion en la que escribira la funcion
+ */
 int printRep(reparacion* catalogo, int len, fecha* momento, int lenMomento);
+/*
+ * BRIEF: listado de reparaciones dadas de alta
+ * param 1: largo del array
+ * param 2: array fecha
+ * param 3: largo del array fecha
+ */
 
 #endif /* REPARACION_H_ */

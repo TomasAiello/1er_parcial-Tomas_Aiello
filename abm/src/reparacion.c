@@ -14,6 +14,7 @@
 #include <ctype.h>
 
 #define RETRY 5
+#define TAM 1000
 
 int initArray2(reparacion* list, int len){
 
@@ -161,12 +162,10 @@ int utn_menu(int* flagAltaElec, int* flagAltaRep){
     				    fpurge(stdin);
     				    getInt(&opcion, msg, msgError, min, max, RETRY);
     				    }
-    				if(*flagAltaElec == 1){
-    					*flagAltaRep = 1;
-    				}
+
     				break;
     			case 8:
-    				if(*flagAltaRep == 0){
+    				if(*flagAltaElec == 0){
     				    printf("Para LISTAR primero debe dar de ALTA \n");
     				    fpurge(stdin);
     				    getInt(&opcion, msg, msgError, min, max, RETRY);
@@ -203,37 +202,75 @@ int printServicios(servicio* Servicios, int len)
 
  return 0;
 }
+int repaIsEmpty(reparacion* catalogo, int len, int* posicionRep){
 
+	int retorno = -1;
+	int i;
+	if(catalogo != NULL && len >= 0 && posicionRep != NULL){
+		for(i=0; i<len; i++){
+			if(catalogo[i].isEmpty == 1){
+				retorno =0;
+				*posicionRep = i;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
 
-int AltaRep(reparacion* catalogo, int len, int serie, int idServicio, fecha* momento, int lenFecha, electrodomestico* list, int lenElec, int idElec, int posicionRep){
+int AltaRep(reparacion* catalogo, int len, fecha* fechaReparacion, int lenFecha, cliente* Clientes, int lenListado, int* posicionRep){
+
 
 
 	char msgError[50];
 	char msg[50];
 	int min, max;
 
-		if(catalogo != NULL && len > 0 && momento != NULL && lenFecha > 0 && list != NULL && lenElec > 0){
+		if(catalogo != NULL && len > 0 && fechaReparacion != NULL && lenFecha > 0 && Clientes != NULL && lenListado > 0){
 
-				//printServicios(Servicios, 4);
-				strcpy(msg, "Ingrese ID del servicio");
+				strcpy(msg, "Ingrese ID de servicio");
 				strcpy(msgError, "ERROR");
-				min = 20000;
-				max = 20003;
-				getInt(&idServicio, msg, msgError, min, max, RETRY);
+				min = 1;
+				max = 200000;
+				getInt(&catalogo[*posicionRep].idServicio, msg, msgError, min, max, RETRY);
 
-
-				strcpy(msg, "Ingrese dia de alta de la reparacion");
+				strcpy(msg, "Ingrese dia de alta de reparacion");
 				strcpy(msgError, "ERROR");
 				min = 1;
 				max = 31;
-				//getInt(&momento[*posicionRep], msg, msgError, min, max, RETRY);
+				getInt(&fechaReparacion[*posicionRep].dia, msg, msgError, min, max, RETRY);
+
+				strcpy(msg, "Ingrese mes de alta de reparacion");
+				strcpy(msgError, "ERROR");
+				min = 1;
+				max = 12;
+				getInt(&fechaReparacion[*posicionRep].mes, msg, msgError, min, max, RETRY);
+
+				strcpy(msg, "Ingrese año de alta de reparacion");
+				strcpy(msgError, "ERROR");
+				min = 2019;
+				max = 2020;
+				getInt(&fechaReparacion[*posicionRep].anio, msg, msgError, min, max, RETRY);
+
+				strcpy(msg, "Ingrese año de fabricacion del electrodomestico (modelo)");
+				strcpy(msgError, "ERROR");
+				min = 1900;
+				max = 2020;
+				getInt(&catalogo[*posicionRep].serie, msg, msgError, min, max, RETRY);
+
+				printClientes(Clientes, 3);
+
+				strcpy(msg, "Ingrese su ID");
+				strcpy(msgError, "ERROR");
+				min = 1000;
+				max = 1003;
+				getInt(&catalogo[*posicionRep].idCliente, msg, msgError, min, max, RETRY);
 
 		}
 
-
-
 	return 0;
 }
+
 
 int printRep(reparacion* catalogo, int len, fecha* momento, int lenMomento)
 {
@@ -246,7 +283,7 @@ int printRep(reparacion* catalogo, int len, fecha* momento, int lenMomento)
 
 	int i;
 
-	if(catalogo != NULL && len > 0 ){
+	if(catalogo != NULL && len > 0 && momento != NULL && lenMomento > 0){
 
 		printf("\n ID   SERIE   DIA    MES  AñO ");
 
@@ -254,7 +291,7 @@ int printRep(reparacion* catalogo, int len, fecha* momento, int lenMomento)
 
 			if(catalogo[i].isEmpty == 0){
 
-				// printf("\n %4d %6d %2d %2d %2d", catalogo[i].id, catalogo[i].serie , momento.fechaReparacion[i].dia, momento[i].mes, momento[i].anio );
+				printf("\n %4d %6d %2d %2d %2d", catalogo[i].id, catalogo[i].serie , momento[i].dia, momento[i].mes, momento[i].anio );
 			}
 		}
 	}
